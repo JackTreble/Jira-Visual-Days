@@ -3,9 +3,8 @@
 // @namespace    
 // @version      0.1
 // @description  dots don't clearly convay information atlassian!
-// @author       JackTreble
-// @downloadURL  https://github.com/JackTreble/Jira-Visual-Days/raw/main/Jira_visual_days.user.js
-// @updateURL    https://github.com/JackTreble/Jira-Visual-Days/raw/main/Jira_visual_days.user.js
+// @downloadURL  https://github.com/JackTreble/Jira-Visual-Days/raw/main/Jira_Visual_Days.user.js
+// @updateURL    https://github.com/JackTreble/Jira-Visual-Days/raw/main/Jira_Visual_Days.user.js
 // @match        https://*.atlassian.net/secure/RapidBoard.jspa?*
 // @match        https://*.atlassian.net/jira/software/c/projects/*/boards/*
 // @icon         https://www.google.com/s2/favicons?domain=atlassian.net
