@@ -1,8 +1,9 @@
 // ==UserScript==
 // @name         Jira Visible Days
 // @namespace    
-// @version      0.1
-// @description  dots don't clearly convay information atlassian!
+// @version      0.2
+// @description  dots to words. dots don't clearly convey information atlassian!
+// @author       JackTreble
 // @downloadURL  https://github.com/JackTreble/Jira-Visual-Days/raw/main/Jira_Visual_Days.user.js
 // @updateURL    https://github.com/JackTreble/Jira-Visual-Days/raw/main/Jira_Visual_Days.user.js
 // @match        https://*.atlassian.net/secure/RapidBoard.jspa?*
@@ -12,6 +13,10 @@
 // ==/UserScript==
 
 //RELEASE NOTES
+// 0.2
+// - Known issues resolved
+// - Debug logs added
+
 // 0.1
 // - replace dots on tickets with wordy days i.e. `3 days`
 // How to enable Days in column:
@@ -22,6 +27,7 @@
 
 
 let visualDays = () => {
+    console.debug("visualDays")
     Array.from(document.getElementsByClassName("ghx-days")).forEach(daysDiv => {
         let daysToolTip = daysDiv.getAttribute("data-tooltip")
         let daysStr = daysToolTip.match(/^\d+ days?/g)
@@ -34,10 +40,10 @@ let visualDays = () => {
             case 1:
             case 2:
                 daysParent.style.color = "green"
-                break;
+                break
             case 3:
                 daysParent.style.color = "orange"
-                break;
+                break
             default:
                 daysParent.style.color = "red"
         }
@@ -47,27 +53,43 @@ let visualDays = () => {
 
 
 let poolColumnObserver = () => {
-    let observer = new MutationObserver(visualDays);
-    let config = { attributes: true, childList: true, subtree: true }
+    console.debug("poolColumnObserver")
     let target = document.querySelector("#ghx-pool-column")
-    observer.observe(target, config)
+    if (target) {
+        console.debug("poolColumnObserver target found")
+        let observer = new MutationObserver(visualDays)
+        let config = { attributes: false, childList: true, subtree: true }
+        observer.observe(target, config)
+    }
+}
+
+
+let contentObserver = () => {
+    console.debug("contentObserver")
+    let target = document.querySelector("#ghx-work")
+    if (target) {
+        console.debug("contentObserver target found")
+        let observer = new MutationObserver(() => {
+            console.debug("contentObserver observed")
+            poolColumnObserver()
+        })
+        let config = { attributes: false, childList: true, subtree: false }
+        observer.observe(target, config)
+    }
 }
 
 let mainContentObserver = () => {
-    let observer = new MutationObserver((_, me) => {
-        let pools = document.querySelector("#ghx-pool-column")
-        if (pools) {
-            poolColumnObserver()
-            me.disconnect();
-            return;
-        }
+    let observer = new MutationObserver(() => {
+        console.debug("mainContentObserver")
+        contentObserver()
+        poolColumnObserver()
     })
-    let config = { childList: true, subtree: true }
+    let config = { attributes: false, childList: true, subtree: false }
     let target = document.querySelector("#ak-main-content")
     observer.observe(target, config)
 }
 
 (function() {
-    'use strict';
+    'use strict'
     mainContentObserver()
-})();
+})()

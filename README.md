@@ -12,6 +12,10 @@ Click to [Install the script](https://github.com/JackTreble/Jira-Visual-Days/raw
 
 ## RELEASE NOTES
 
+### 0.2
+- Known issues resolved
+- Debug logs added
+
 ### 0.1
 
 - replace dots on tickets with wordy days i.e. `3 days`
