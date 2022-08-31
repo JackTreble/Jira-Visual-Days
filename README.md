@@ -1,5 +1,5 @@
 # Jira-Visual-Days
-a userscript to replace dots with words
+a userscript to replace dots with words on tickets.
 
 ## How to install
 
@@ -11,6 +11,9 @@ Click to [Install the script](https://github.com/JackTreble/Jira-Visual-Days/raw
 
 
 ## RELEASE NOTES
+
+### 0.3
+- Simplify implementation
 
 ### 0.2
 - Known issues resolved
