@@ -1,3 +1,6 @@
+Re-created as a chrome extention 
+https://github.com/JackTreble/jira-dots-to-days
+
 # Jira-Visual-Days
 a userscript to replace dots with words on tickets.
 
